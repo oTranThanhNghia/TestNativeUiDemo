@@ -8,6 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import CircularProgressButton from './CircularProgressButton';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -18,12 +19,39 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+
+  constructor(props){
+    super(props);
+    this.state={
+      progress:-1
+    }
+  }
+
+  onClick=()=>{
+    if(this.state.progress==-1){
+      this.setState({
+        progress:0
+      });
+    }else if(this.state.progress==0){
+      this.setState({
+        progress:100
+      });
+    }else if(this.state.progress==100){
+      this.setState({
+        progress:0
+      });
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text>{instructions}</Text>
+        <Text style={styles.welcome} onPress={this.onClick}>Click here {this.state.progress}</Text>
+        <CircularProgressButton style={{ height:100, width:100 }}  
+          text="text" completeText="Done" errorText="Error" idleText="idleText"
+          progress={this.state.progress}
+        />
       </View>
     );
   }
@@ -40,6 +68,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    backgroundColor:'#f00'
   },
   instructions: {
     textAlign: 'center',
