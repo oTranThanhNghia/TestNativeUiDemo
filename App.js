@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import CircularProgressButton from './CircularProgressButton';
 
 const instructions = Platform.select({
@@ -48,10 +48,12 @@ export default class App extends Component<Props> {
       <View style={styles.container}>
         <Text>{instructions}</Text>
         <Text style={styles.welcome} onPress={this.onClick}>Click here {this.state.progress}</Text>
-        <CircularProgressButton style={{ height:100, width:100 }}  
-          text="text" completeText="Done" errorText="Error" idleText="idleText"
-          progress={this.state.progress}
-        />
+        <TouchableOpacity onPress={this.onClick}>
+          <CircularProgressButton style={{ height:100, width:100 }}  
+            text="text" completeText="Done" errorText="Error" idleText="idleText"
+            progress={this.state.progress}
+          />
+        </TouchableOpacity>
       </View>
     );
   }
